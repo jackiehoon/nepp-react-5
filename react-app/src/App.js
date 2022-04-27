@@ -1,9 +1,9 @@
-import JsxPractice from "./components/JsxPractice";
+import EventPractice from "./components/EventPractice";
 
 function App() {
   return (
     <>
-      <JsxPractice />
+      <EventPractice />
     </>
   );
 }
