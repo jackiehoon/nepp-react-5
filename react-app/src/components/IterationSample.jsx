@@ -8,17 +8,20 @@ const IterationSample = () => {
     { id: 3, text: "눈" },
     { id: 4, text: "바람" },
   ]);
+  const [nextId, setNextId] = useState(5);
 
   const handleClick = () => {
     if (!text) return;
 
-    const newArr = [...names, text];
+    const newArr = [...names, { id: nextId, text: text }];
     setNames(newArr);
     setText("");
+    setNextId(nextId + 1);
   };
 
-  const handleDelete = (id) => {
-    filter;
+  const handleDelete = (deleteId) => {
+    const newArr = names.filter((e) => e.id !== deleteId);
+    setNames(newArr);
   };
 
   return (
@@ -27,11 +30,9 @@ const IterationSample = () => {
       <button onClick={handleClick}>입력</button>
 
       <ul>
-        {names.map((name, i) => (
-          <div key={i}>
-            <li onDoubleClick={() => handleDelete(name.id)}>
-              {name.text} 입니다
-            </li>
+        {names.map(({ id, text }) => (
+          <div key={id}>
+            <li onDoubleClick={() => handleDelete(id)}>{text} 입니다</li>
           </div>
         ))}
       </ul>

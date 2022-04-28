@@ -19,3 +19,26 @@ const callback = (e, i) => {
 
 const newArr = arr.map(callback);
 // [2,4,6]
+
+const filter = (cb) => {
+  const array = [];
+
+  for (let i = 0; i < this.length; i++) {
+    if (cb(this[i])) {
+      array.push(this[i]);
+    }
+  }
+
+  return array;
+};
+
+const newArr2 = arr.filter((e) => {
+  return e === 3;
+});
+// [3];
+
+const forEach = (cb) => {
+  for (let i = 0; i < this.length; i++) {
+    cb(this[i], i);
+  }
+};
