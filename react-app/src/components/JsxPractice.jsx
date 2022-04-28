@@ -29,10 +29,9 @@ function JsxPractice() {
       <br />
       <input />
 
-      <MyComponent name="리액트3" name2="뷰" asdf="asdf">
-        <button>children입니다.</button>
-        <input type="file" />
-      </MyComponent>
+      <MyComponent name="리액트3" name2="뷰" asdf="asdf"></MyComponent>
+      <MyComponent name="리액트4" />
+      <MyComponent name="리액트5" />
     </>
   );
 }

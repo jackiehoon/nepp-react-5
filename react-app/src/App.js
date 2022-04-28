@@ -1,9 +1,9 @@
-import EventPractice from "./components/EventPractice";
+import IterationSample from "./components/IterationSample";
 
 function App() {
   return (
     <>
-      <EventPractice />
+      <IterationSample />
     </>
   );
 }
