@@ -1,9 +1,9 @@
-import IterationSample from "./components/IterationSample";
+import Average from "./components/Average";
 
 function App() {
   return (
     <>
-      <IterationSample />
+      <Average />
     </>
   );
 }
