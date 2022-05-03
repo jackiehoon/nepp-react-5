@@ -1,9 +1,9 @@
-import StyledComponent from "./components/StyledComponent";
+import Flex from "./components/Flex";
 
 function App() {
   return (
     <>
-      <StyledComponent />
+      <Flex />
     </>
   );
 }
