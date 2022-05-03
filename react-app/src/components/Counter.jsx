@@ -1,12 +1,5 @@
 import { useState } from "react";
-
-// const useState = (init) => {
-//   let state = init;
-//   const setState = (val) => {
-//     state = val;
-//   };
-//   return [state, setState];
-// };
+import styles from "../App.module.css";
 
 const Counter = () => {
   const [number, setNumber] = useState(0);
@@ -14,7 +7,9 @@ const Counter = () => {
   return (
     <>
       <h1>{number}</h1>
-      <button onClick={() => setNumber(number + 1)}>+1</button>
+      <button className={styles.button} onClick={() => setNumber(number + 1)}>
+        +1
+      </button>
     </>
   );
 };

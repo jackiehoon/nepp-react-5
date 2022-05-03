@@ -7,7 +7,9 @@ const Counter2 = () => {
   return (
     <>
       <h1>현재 카운터 값은 {number} 입니다.</h1>
-      <button onClick={() => handleNumber(7)}>+7</button>
+      <button className="button" onClick={() => handleNumber(7)}>
+        +7
+      </button>
       <button onClick={() => handleNumber(3)}>+3</button>
       <button onClick={() => handleNumber(1)}>+1</button>
       <button onClick={() => handleNumber(-1)}>-1</button>

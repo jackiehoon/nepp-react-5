@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const IterationSample = () => {
   const [text, setText] = useState("");
@@ -8,15 +8,16 @@ const IterationSample = () => {
     { id: 3, text: "눈" },
     { id: 4, text: "바람" },
   ]);
-  const [nextId, setNextId] = useState(5);
+  // const [nextId, setNextId] = useState(5);
+  const nextId = useRef(5);
 
   const handleClick = () => {
     if (!text) return;
 
-    const newArr = [...names, { id: nextId, text: text }];
+    const newArr = [...names, { id: nextId.current, text: text }];
     setNames(newArr);
     setText("");
-    setNextId(nextId + 1);
+    nextId.current++;
   };
 
   const handleDelete = (deleteId) => {
