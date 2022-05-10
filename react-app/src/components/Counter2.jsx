@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const Counter2 = () => {
   const [number, setNumber] = useState(7);
-  const handleNumber = (i) => setNumber(number + i);
+  const handleNumber = (i) => setNumber((prev) => prev + i);
 
   return (
     <>
