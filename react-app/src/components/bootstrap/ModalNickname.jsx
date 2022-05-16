@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import useBodyOverflowHidden from "../../hooks/useBodyOverflowHidden";
 
-const ModalFirst = ({ onClose, onSubmit }) => {
+const ModalNickname = ({ onClose, onSubmit }) => {
   useBodyOverflowHidden();
   const [text, setText] = useState("");
 
@@ -15,14 +15,9 @@ const ModalFirst = ({ onClose, onSubmit }) => {
     <>
       <Backdrop onClick={onClose} />
       <Container>
-        <h2>이름 바꾸기</h2>
-        <Main>
-          <input value={text} onChange={(e) => setText(e.target.value)} />
-        </Main>
-        <Footer>
-          <button onClick={onClose}>취소</button>
-          <button onClick={handleSubmit}>확인</button>
-        </Footer>
+        <h2>닉네임 바꾸기</h2>
+        <input value={text} onChange={(e) => setText(e.target.value)} />
+        <button onClick={handleSubmit}>확인</button>
       </Container>
     </>
   );
@@ -46,11 +41,4 @@ const Container = styled.div`
   padding: 20px;
   border-radius: 4px;
 `;
-
-const Main = styled.div``;
-const Footer = styled.div`
-  padding: 10px 0;
-  display: flex;
-  justify-content: flex-end;
-`;
-export default ModalFirst;
+export default ModalNickname;
