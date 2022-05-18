@@ -13,6 +13,7 @@ const Book = () => {
   }, []);
 
   const refreshList = async () => {
+    if (!text) return;
     const { items } = await getBooks({ query: text });
     setBooks(items);
   };
@@ -35,6 +36,5 @@ const Book = () => {
 };
 
 const Form = styled.form``;
-const List = styled.div``;
 
 export default Book;
