@@ -3,46 +3,44 @@ import styled from "styled-components";
 
 import { getMovies } from "../../apis";
 import MovieList from "../templates/Movie/MovieList";
-import { countryList } from "../../datas";
+import SearchForm from "../templates/Movie/SearchForm";
 
 const Movie = () => {
-  const [text, setText] = useState("");
   const [movies, setMovies] = useState([]);
+  const [params, setParams] = useState({
+    query: "",
+    country: "ALL",
+  });
+  const { query, country } = params;
 
   useEffect(() => {
     refreshMovies();
-  }, []);
+  }, [params]);
 
   const refreshMovies = async () => {
-    const result = await getMovies(text);
+    if (!query) return;
+
+    const params = { query };
+    if (country !== "ALL") params.country = country;
+
+    const result = await getMovies(params);
     setMovies(result.items);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    refreshMovies();
+  const handleChange = ({ name, value }) => {
+    const newParams = { ...params, [name]: value };
+    setParams(newParams);
   };
 
   return (
     <Layout>
       <h1>영화</h1>
-      <Form onSubmit={handleSubmit}>
-        <select>
-          {countryList.map(({ code, name }) => (
-            <option value={code} key={code}>
-              {name}
-            </option>
-          ))}
-        </select>
-        <input value={text} onChange={(e) => setText(e.target.value)} />
-        <button>검색</button>
-      </Form>
+      <SearchForm onChange={handleChange} />
       <MovieList data={movies} />
     </Layout>
   );
 };
 
 const Layout = styled.div``;
-const Form = styled.form``;
 
 export default Movie;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MovieList = ({ data }) => {
+const BookList = ({ data }) => {
   return (
     <List>
       {data.map(({ link, title, image }) => (
@@ -34,4 +34,4 @@ const Thumbnail = styled.img`
 `;
 const Title = styled.p``;
 
-export default MovieList;
+export default BookList;
