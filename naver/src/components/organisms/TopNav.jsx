@@ -2,13 +2,19 @@ import styled from "styled-components";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const linkList = [
+  { link: "/", name: "메인" },
+  { link: "/movie", name: "영화" },
+  { link: "/book", name: "책" },
+];
+
 const TopNav = () => {
   //   const { pathname } = useLocation();
   //   const [isShow, setIsShow] = useState(false);
 
   //   useEffect(() => {
-  //     const isMain = pathname !== "/";
-  //     setIsShow(isMain);
+  //     const isMain = pathname === "/";
+  //     setIsShow(!isMain);
   //   }, [pathname]);
 
   //   if (!isShow) return <></>;
@@ -16,15 +22,11 @@ const TopNav = () => {
     <>
       <Container>
         <LinkList>
-          <Link to="/">
-            <BtnLink>메인</BtnLink>
-          </Link>
-          <Link to="/movie">
-            <BtnLink>영화</BtnLink>
-          </Link>
-          <Link to="/book">
-            <BtnLink>책</BtnLink>
-          </Link>
+          {linkList.map(({ link, name }) => (
+            <Link to={link} key={link}>
+              <BtnLink>{name}</BtnLink>
+            </Link>
+          ))}
         </LinkList>
       </Container>
       <Outlet />
