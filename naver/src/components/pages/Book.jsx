@@ -5,28 +5,50 @@ import BookList from "../templates/Book/List";
 import { getBooks } from "../../apis";
 import { useEffect, useState } from "react";
 import Pagination from "../organisms/Pagination";
+import { useSearchParams } from "react-router-dom";
+
 const display = 10;
 const Book = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [text, setText] = useState("");
+  const [query, setQuery] = useState("");
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
+  const querySP = searchParams.get("query");
+  const pageSP = searchParams.get("page");
+
+  useEffect(() => {
+    if (querySP) {
+      setText(querySP);
+      setQuery(querySP);
+      if (pageSP) setPage(+pageSP);
+    } else {
+      setText("");
+      setBooks([]);
+      setTotal(0);
+    }
+  }, [querySP, pageSP]);
+
   useEffect(() => {
     refreshList();
-  }, [page]);
+  }, [query, page]);
 
   const refreshList = async () => {
-    if (!text) return;
+    if (!query) return;
     const start = (page - 1) * display + 1;
-    const { items, total } = await getBooks({ query: text, start });
+    const { items, total } = await getBooks({ query, start });
     setBooks(items);
     setTotal(total);
+    setSearchParams({ query, page });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    refreshList();
+    setPage(1);
+    setQuery(text);
   };
 
   return (

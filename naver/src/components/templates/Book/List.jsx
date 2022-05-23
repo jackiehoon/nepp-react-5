@@ -1,20 +1,20 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const BookList = ({ data }) => {
   return (
     <List>
-      {data.map(({ link, title, image }) => (
-        <Item key={link}>
-          <a href={link} target="_blank" rel="noreferrer">
+      {data.map(({ link, title, image, isbn }) => (
+        <Link to={`/book/${isbn.split(" ")[1]}`} key={link}>
+          <Item>
             <Thumbnail src={image} />
             <Title
               dangerouslySetInnerHTML={{
                 __html: title,
               }}
             />
-            {/* <Title>{title.replace("<b>", "").replace("</b>", "")}</Title> */}
-          </a>
-        </Item>
+          </Item>
+        </Link>
       ))}
     </List>
   );

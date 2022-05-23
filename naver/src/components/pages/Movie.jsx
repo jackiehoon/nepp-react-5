@@ -22,6 +22,10 @@ const Movie = () => {
     refreshMovies();
   }, [params, page]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [params]);
+
   const refreshMovies = async () => {
     if (!query) return;
 
@@ -38,6 +42,7 @@ const Movie = () => {
     setTotal(total);
   };
 
+  // 검색어바뀌면 page를 1로
   const handleChange = ({ name, value }) => {
     const newParams = { ...params, [name]: value };
     setParams(newParams);
