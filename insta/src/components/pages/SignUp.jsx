@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { createUser } from "../../apis/user";
 
 import {
   Layout,
@@ -13,6 +15,25 @@ import {
 } from "../atoms/login";
 
 const SignUp = () => {
+  const [form, setForm] = useState({});
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const newForm = { ...form, [name]: value };
+    setForm(newForm);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { user_name, password, passwordConfirm } = form;
+    if (user_name.length < 4) {
+      return alert("아이디를 4글자 이상 입력하세요");
+    }
+    if (password !== passwordConfirm) {
+      return alert("비밀번호를 확인하세요");
+    }
+
+    createUser(form);
+  };
   return (
     <Layout>
       <Main>
@@ -20,11 +41,25 @@ const SignUp = () => {
           <LogoWrapper>
             <Logo src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" />
           </LogoWrapper>
-          <Form>
-            <InputText placeholder="휴대폰 번호 또는 이메일 주소" />
-            <InputText placeholder="성명" />
-            <InputText placeholder="사용자 이름" />
-            <InputText placeholder="비밀번호" type="password" />
+          <Form onSubmit={handleSubmit}>
+            <InputText name="name" placeholder="성명" onChange={handleChange} />
+            <InputText
+              name="user_name"
+              placeholder="사용자 이름"
+              onChange={handleChange}
+            />
+            <InputText
+              name="password"
+              placeholder="비밀번호"
+              type="password"
+              onChange={handleChange}
+            />
+            <InputText
+              name="passwordConfirm"
+              placeholder="비밀번호 확인"
+              type="password"
+              onChange={handleChange}
+            />
             <BtnLogin>가입</BtnLogin>
           </Form>
         </Box>
