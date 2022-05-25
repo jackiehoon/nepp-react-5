@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import {
   Layout,
@@ -12,8 +13,30 @@ import {
   BtnLogin,
   SecondBox,
 } from "../atoms/login";
+import { getToken } from "../../apis/user";
+import instance from "../../apis";
 
 const LogIn = () => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { success, message, token } = await getToken({
+      user_name: userName,
+      password,
+    });
+
+    if (success) {
+      alert("로그인 성공");
+      instance.defaults.headers.common["Authorization"] = token;
+      localStorage.token = token;
+    } else {
+      alert(message);
+    }
+  };
+
   return (
     <Layout>
       <Main>
@@ -21,9 +44,18 @@ const LogIn = () => {
           <LogoWrapper>
             <Logo src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" />
           </LogoWrapper>
-          <Form>
-            <InputText placeholder="전화번호, 사용자 이름 또는 이메일" />
-            <InputText placeholder="비밀번호" type="password" />
+          <Form onSubmit={handleSubmit}>
+            <InputText
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="전화번호, 사용자 이름 또는 이메일"
+              required
+            />
+            <InputText
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="비밀번호"
+              type="password"
+              required
+            />
             <BtnLogin>로그인</BtnLogin>
           </Form>
           <FBLogin>Facebook으로 로그인</FBLogin>

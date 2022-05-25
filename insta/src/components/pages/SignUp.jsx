@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../apis/user";
 
 import {
@@ -15,13 +15,15 @@ import {
 } from "../atoms/login";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({});
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const newForm = { ...form, [name]: value };
     setForm(newForm);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { user_name, password, passwordConfirm } = form;
@@ -32,7 +34,15 @@ const SignUp = () => {
       return alert("비밀번호를 확인하세요");
     }
 
-    createUser(form);
+    const { success, message } = await createUser(form);
+
+    if (success) {
+      alert("환영합니다");
+      navigate("/login");
+    } else {
+      alert(message);
+      setForm((prev) => ({ ...prev, user_name: "" }));
+    }
   };
   return (
     <Layout>
@@ -44,6 +54,7 @@ const SignUp = () => {
           <Form onSubmit={handleSubmit}>
             <InputText name="name" placeholder="성명" onChange={handleChange} />
             <InputText
+              value={form.user_name}
               name="user_name"
               placeholder="사용자 이름"
               onChange={handleChange}
