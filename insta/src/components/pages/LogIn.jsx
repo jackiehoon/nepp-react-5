@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import {
@@ -15,8 +15,12 @@ import {
 } from "../atoms/login";
 import { getToken } from "../../apis/user";
 import instance from "../../apis";
+import { useSetRecoilState } from "recoil";
+import { loginState } from "../../stores";
 
 const LogIn = () => {
+  const setIsLogin = useSetRecoilState(loginState);
+  const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,13 +32,12 @@ const LogIn = () => {
       password,
     });
 
-    if (success) {
-      alert("로그인 성공");
-      instance.defaults.headers.common["Authorization"] = token;
-      localStorage.token = token;
-    } else {
-      alert(message);
-    }
+    if (!success) return alert(message);
+
+    instance.defaults.headers.common["Authorization"] = token;
+    localStorage.token = token;
+    setIsLogin(true);
+    navigate("/");
   };
 
   return (
