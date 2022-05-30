@@ -70,7 +70,7 @@ export const postUsersToken = async (req, res) => {
     userId: id,
   };
   const option = {
-    expiresIn: "1s",
+    expiresIn: "1d",
   };
   const token = jwt.sign(payload, secretKey, option);
 
